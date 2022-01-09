@@ -17,20 +17,24 @@ function checkConnection(sitelist) {
 /* GET DATA FUNCTION */
 async function getData(url) {
   // Get Response
-  const res = await new Promise(resolve => {
-    http.get(url, resolve);
-  });
+  try {
+    const res = await new Promise(resolve => {
+      http.get(url, resolve);
+    });
 
-  // Process Response
-  let data = await new Promise((resolve, reject) => {
-    let _data = '';
-    res.on('data', chunk => _data += chunk);
-    res.on('error', err => reject(err));
-    res.on('end', () => resolve(JSON.parse(_data)));
-  });
+    // Process Response
+    let data = await new Promise((resolve, reject) => {
+      let _data = '';
+      res.on('data', chunk => _data += chunk);
+      res.on('error', err => reject(err));
+      res.on('end', () => resolve(JSON.parse(_data)));
+    });
 
-  // Return Processed Response
-  return data || false;
+    // Return Processed Response
+    return data;
+  } catch (e) {
+    return false;
+  }
 }
 
 /* WEATHER REPORTING FUNCTION */
@@ -47,15 +51,15 @@ function reportWeather (data) {
   // Get Wind Driection Arrow
   const getWindDirectionSymbol = (d) => {
     // Why did a switch not work, beats me. This is ugly but works.
-    if (d < 23) { return '🢁'; } // u1f881
-    if (d < 67) { return '🢅'; } // u1f885
-    if (d < 113) { return '🢂'; } // u1f882
-    if (d < 157) { return '🢆'; } // u1f886
-    if (d < 203) { return '🢃'; } // u1f883
-    if (d < 247) { return '🢇'; } // u1f887
-    if (d < 293) { return '🢀'; } // u1f880
-    if (d < 337) { return '🢄'; } // u1f884
-    if (d >= 338) { return '🢁'; } // u1f881
+    if (d < 23) { return '▲'; } // u25b2
+    if (d < 67) { return '◥'; } // u25e5
+    if (d < 113) { return '▶'; } // u25b6
+    if (d < 157) { return '◢'; } // u25e2
+    if (d < 203) { return '▼ '; } // u25bc
+    if (d < 247) { return '◣'; } // u25e3
+    if (d < 293) { return '◀'; } // u25c0
+    if (d < 337) { return '◤'; } // u25e4
+    if (d >= 338) { return '▲'; } // u25b2
     return '';
   }
 
@@ -69,24 +73,24 @@ function reportWeather (data) {
       case "broken clouds":
         return '⛅ Broken Clouds'; // u26c5
       case "shower rain" | "rain":
-        return '🌧️ Rain'; // u1f327
+        return '☂ Rain'; // u2602
       case "thunderstorms":
         return '⚡️ Thunderstorms'; // u26a1
       case "snow":
         return '❄️ Snow'; // u2744
       case "mist":
-        return '🌫︎ Mist'; // u1f32b
+        return '⛆ Misty'; // u26c6
       default:
         return '';
     }
   }
 
+  // FIXME: Does not work after build with pkg... unhandled promise.
   // Converts Unix Format to AM/PM Format
-  const convertUnixtoTime = (t) => {
-    const date = new Date(t * 1000)
-    const formedDate = date.toLocaleString('en-US', {timeZone: 'CST', timeStyle: 'short'});
-    return formedDate;
-  }
+  // const convertUnixtoTime = (t) => {
+  //   const date = new Date(t * 1000).toLocaleString('en-US', {timeZone: 'CST', timeStyle: 'short'});
+  //   return date;
+  // }
 
   // Variables Used
   const city  = data.name;
@@ -95,11 +99,12 @@ function reportWeather (data) {
   const speed = data.wind.speed.toFixed(0);
   const press = pressure(data.main.pressure);
   const skies = getWeatherTypeSymbol(data.weather[0].description);
-  const therm = '🌡︎'; // u1f321
-  const time  = convertUnixtoTime(data.dt);
+  const therm = 'ϴ'; // u03f4
+  // const time  = convertUnixtoTime(data.dt);
 
   // Display Data
-  console.log(`${city} Current Weather at ${time}: ${skies}  ${therm}${temp}°F  ${dir} ${speed}mph  ${press}in`)
+  // console.log(`${city} Current Weather at ${time}: ${skies}  ${therm}${temp}°F  ${dir} ${speed}mph  ${press}in`)
+  console.log(`${city} Current Weather: ${skies}  ${therm}${temp}°F  ${dir}${speed}mph  ${press}in`)
 
   // Done
   return;
