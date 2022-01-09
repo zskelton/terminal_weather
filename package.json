@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "Test Weather API",
   "main": "index.cjs",
+  "bin": "index.cjs",
+  "pkg": {
+    "assets": [ "Fonts/**/*"],
+    "targets": [ "node10-win-x64" ]
+  },
   "author": "Zachary D. Skelton",
   "license": "MIT",
   "scripts": {
     "start": "node index.cjs",
-    "debug": "node --inspect-brk index.cjs"
+    "debug": "node --inspect-brk index.cjs",
+    "build": "pkg --output build/web ."
   }
 }
