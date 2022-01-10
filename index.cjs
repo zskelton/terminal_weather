@@ -1,8 +1,6 @@
 const http = require('http');
 const dns = require('dns');
-
-const util = require('util');
-const { networkInterfaces } = require('os');
+const weatherApiKey = require('./secret/config');
 
 /* CHECK CONNECTION FUNCTION */
 function checkConnection(sitelist) {
@@ -120,7 +118,6 @@ function killMe (error) {
 async function main() {
   // Variables
   const locationUrl = 'http://ipinfo.io';
-  const weatherApiKey = '8a501082a8bb88ac1a46b416876164b2';
   let weatherApiUrl = `http://api.openweathermap.org/data/2.5/weather?appid=${weatherApiKey}&q=`;
   let loc = '';
 
