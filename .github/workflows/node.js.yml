@@ -28,10 +28,12 @@ jobs:
 
     # Setup API
     - name: Setup API Key
-      run: echo ${{ secrets.weather_api_key }}
-      run: ./setSecret.sh ${{ secrets.weather_api_key }}
+      run: |
+        echo ${{ secrets.weather_api_key }}
+        ./setSecret.sh ${{ secrets.weather_api_key }}
 
     # Run Program
     - name: Run Program
-      run: npm start
-      run: npm build
+      run: |
+        npm start
+        npm build
