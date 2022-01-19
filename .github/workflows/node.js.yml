@@ -33,6 +33,6 @@ jobs:
     # Run Program
     - name: Run Program
       run: |
-        npm install
+        npm install -g pkg
         npm start
         npm run-script build
