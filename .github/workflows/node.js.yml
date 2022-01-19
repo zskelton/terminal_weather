@@ -24,16 +24,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
 
     # Setup API
     - name: Setup API Key
       run: |
-        echo ${{ secrets.weather_api_key }}
         ./setSecret.sh ${{ secrets.weather_api_key }}
 
     # Run Program
     - name: Run Program
       run: |
+        npm install
         npm start
-        npm build
+        npm run-script build
