@@ -18,12 +18,20 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    # Setup Node and Directory
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
+    # Setup API
+    - name: Setup API Key
+    - run: echo ${{ secrets.weather_api_key }}
+    - run: ./setSecret.sh ${{ secrets.weather_api_key }}
+
+    # Run Program
+    - name: Run Program
     - run: npm start
     - run: npm build
-
