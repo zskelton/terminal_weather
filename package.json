@@ -5,8 +5,12 @@
   "main": "index.cjs",
   "bin": "index.cjs",
   "pkg": {
-    "assets": [ "Fonts/**/*"],
-    "targets": [ "node10-win-x64" ]
+    "assets": [
+      "Fonts/**/*"
+    ],
+    "targets": [
+      "node10-win-x64"
+    ]
   },
   "author": "Zachary D. Skelton",
   "license": "MIT",
@@ -16,5 +20,8 @@
     "build": "pkg --output build/web .",
     "docs": ".\\bin\\glow.exe .\\README.md --pager",
     "install": ".\\install.bat"
+  },
+  "devDependencies": {
+    "jest": "^27.5.0"
   }
 }
