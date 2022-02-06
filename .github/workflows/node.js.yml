@@ -41,6 +41,26 @@ jobs:
     - name: Test Program
       run: npm run-script test
 
-    # Setup Coverage
-    - name: Coverage Report
+  # Install the Program
+  coverage:
+    runs-on: ubuntu-latest
+    name: Coverage Report
+    steps:
+    # Setup Node and Directory
+    - uses: actions/checkout@v2
+    - name: Use Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16.x
+    # Setup For Coverage
+    - name: Setup API Key
+      run: |
+        npm install -g pkg
+        npm install
+        ./setSecret.sh ${{ secrets.weather_api_key }}
+        npm start
+        touch .gitignore
+        echo node_modules >> .gitignore
+    # Get Coverage
+    - name: Check Coverage
       uses: ArtiomTr/jest-coverage-report-action@v2
