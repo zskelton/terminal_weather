@@ -28,30 +28,17 @@ jobs:
         npm install -g pkg
         ./setSecret.sh ${{ secrets.weather_api_key }}
   
-  # Run the Program
-  run:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
     # Run Program
     - name: Run Program
       run: npm start
 
-  # Build the Executable
-  build:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
+    # Build the Executable
     - name: Build Program
       run: npm run-script build
-  
-  # Test the Program
-  test:
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test Program
-        run: npm run-script test
+
+    # Test the Program
+    - name: Test Program
+      run: npm run-script test
   
   # Setup Coverage
   coverage:
