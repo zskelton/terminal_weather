@@ -28,7 +28,7 @@ jobs:
         npm install -g pkg
         npm install
         ./setSecret.sh ${{ secrets.weather_api_key }}
-  
+
     # Run Program
     - name: Run Program
       run: npm start
@@ -40,12 +40,8 @@ jobs:
     # Test the Program
     - name: Test Program
       run: npm run-script test
-  
-  # Setup Coverage
-  coverage:
-    needs: install
-    runs-on: ubuntu-latest
-    name: Coverage Report
-    steps:
+
+    # Setup Coverage
+    - name: Coverage Report
       - uses: actions/checkout@v1
       - uses: ArtiomTr/jest-coverage-report-action@v2
