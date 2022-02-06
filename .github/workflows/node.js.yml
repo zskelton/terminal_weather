@@ -36,3 +36,13 @@ jobs:
         npm install -g pkg
         npm start
         npm run-script build
+
+    # Run Tests
+    - name: Run Tests
+      run: |
+      npm run test
+
+    # Run Coverage
+    - name: Run Coverage
+      uses: actions/checkout@v1
+      uses: ArtiomTr/jest-coverage-report-action@v2
