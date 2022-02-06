@@ -26,6 +26,7 @@ jobs:
     - name: Setup API Key
       run: |
         npm install -g pkg
+        npm install
         ./setSecret.sh ${{ secrets.weather_api_key }}
   
     # Run Program
