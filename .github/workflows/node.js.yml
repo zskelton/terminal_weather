@@ -45,7 +45,10 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     name: Coverage Report
+<<<<<<< HEAD
     needs: install
+=======
+>>>>>>> 9565b26454010bb18d36649998635c64be0ea3b1
     steps:
     # Setup Node and Directory
     - uses: actions/checkout@v2
