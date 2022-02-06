@@ -3,13 +3,20 @@ const dns = require('dns');
 const colors = require('./ansi_colors');
 const weatherApiKey = require('./secret/config');
 
+/* KILL PROCESS FUNCTION */
+function killMe (error) {
+  error ? console.error(`${colors.red}Error: ${colors.white}${error.code} @ ${error.hostname}.${colors.reset}`) : null;
+  process.exit(error ? 1 : 0);
+}
+
 /* CHECK CONNECTION FUNCTION */
-function checkConnection(sitelist) {
-  // Check Each Site
+const checkConnection = async(sitelist) => {
   sitelist.forEach((site) => {
-    dns.resolve(site, (err) => { return false; })
+      dns.lookup(site, err => {
+        if (err) { killMe(err); }
+      });
   });
-  // No errors, return true.
+
   return true;
 }
 
@@ -109,12 +116,6 @@ function reportWeather (data) {
   return;
 }
 
-/* KILL PROCESS FUNCTION */
-function killMe (error) {
-  error ? console.error(`Ended with an error!`) : null;
-  process.exit(error ? 1 : 0);
-}
-
 /* MAIN FUNCTION */
 async function main() {
   // Variables
@@ -123,10 +124,13 @@ async function main() {
   let loc = '';
 
   // Check Sites are Online
-  if(!checkConnection(['ipinfo.io', 'api.openweathermap.org'])) {
-    console.warn("No internet connection.\n");
-    killMe();
-  }
+  checkConnection(['ipinfo.io', 'api.openweathermap.org']);
+  // try {
+  //   checkConnection(['ipinfo.io', 'api.openweathermap.org']);
+  // } catch (error) {
+  //   console.warn(`${colors.red}No internet connection.${colors.reset}\n`);
+  //   killMe();
+  // }
 
   // Get Location Info
   const locData = await getData(locationUrl);
