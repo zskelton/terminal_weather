@@ -29,6 +29,7 @@ jobs:
   
   # Run the Program
   run:
+    needs: install
     runs-on: ubuntu-latest
     steps:
     # Run Program
@@ -39,6 +40,7 @@ jobs:
 
   # Build the Executable
   build:
+    needs: install
     runs-on: ubuntu-latest
     steps:
     - name: Build Program
@@ -47,6 +49,7 @@ jobs:
   
   # Test the Program
   test:
+    needs: install
     runs-on: ubuntu-latest
     steps:
       - name: Test Program
@@ -55,6 +58,7 @@ jobs:
   
   # Setup Coverage
   coverage:
+    needs: install
     runs-on: ubuntu-latest
     name: Coverage Report
     steps:
