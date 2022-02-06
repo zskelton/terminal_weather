@@ -1,5 +1,6 @@
 const http = require('http');
 const dns = require('dns');
+const colors = require('./ansi_colors');
 const weatherApiKey = require('./secret/config');
 
 /* CHECK CONNECTION FUNCTION */
@@ -102,7 +103,7 @@ function reportWeather (data) {
 
   // Display Data
   // console.log(`${city} Current Weather at ${time}: ${skies}  ${therm}${temp}°F  ${dir} ${speed}mph  ${press}in`)
-  console.log(`${city} Current Weather: ${skies}  ${therm}${temp}°F  ${dir}${speed}mph  ${press}in`)
+  console.log(`${colors.white}${city} Current Weather:${colors.green} ${skies}  ${therm}${temp}°F  ${dir}${speed}mph  ${press}in${colors.reset}`);
 
   // Done
   return;
