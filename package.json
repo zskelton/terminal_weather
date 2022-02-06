@@ -19,7 +19,7 @@
     "debug": "node --inspect-brk index.cjs",
     "build": "pkg --output build/web .",
     "docs": ".\\bin\\glow.exe .\\README.md --pager",
-    "test": "jest",
+    "test": "jest --config jest.config.js",
     "coverage": "start .\\coverage\\index.html"
   },
   "devDependencies": {

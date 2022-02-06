@@ -1,6 +1,8 @@
+secret/
 secret/config.js
-node_modules
-coverage
+node_modules/
+coverage/*
+
 # Logs
 logs
 *.log
