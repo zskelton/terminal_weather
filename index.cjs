@@ -14,11 +14,11 @@ async function main() {
   const locData = await utils.getData(locationUrl);
   if(!locData) { console.warn("Error: Failed to get location."); utils.killMe(); };
 
-  // console.log(util.inspect(locData, false, null, true));
-
   // Get Weather Info
   const weatherData = await utils.getData(weatherApiUrl+locData.city);
   if(!weatherData) { console.warn("Error: Failed to get weather."); utils.killMe(); };
+
+  console.log(weatherData);
 
   // Print Status
   utils.reportWeather(weatherData);

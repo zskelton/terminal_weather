@@ -105,7 +105,7 @@ function reportWeather (data) {
   console.log(`${colors.white}${city} Current Weather:${colors.green} ${skies}  ${therm}${temp}°F  ${dir}${speed}mph  ${press}in${colors.reset}`);
 
   // Done
-  return;
+  return true;
 }
 
 exports.killMe = killMe;
