@@ -19,7 +19,8 @@
     "debug": "node --inspect-brk index.cjs",
     "build": "pkg --output build/web .",
     "docs": ".\\bin\\glow.exe .\\README.md --pager",
-    "install": ".\\install.bat"
+    "install": ".\\install.bat",
+    "test": "jest"
   },
   "devDependencies": {
     "jest": "^27.5.0"

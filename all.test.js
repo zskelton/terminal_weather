@@ -1,5 +1,13 @@
 const utils = require('./utils/index.cjs');
 const weatherApiKey = require('./secret/config');
+const { TestWatcher } = require('jest');
+
+// Tests It All Runs
+test('Program Runs', () => {
+  return expect(main()).resolves.toBe(true);
+});
+
+
 
 /* MAIN FUNCTION */
 async function main() {
@@ -24,9 +32,6 @@ async function main() {
   utils.reportWeather(weatherData);
 
   // Quit
-  utils.killMe();
+  return true;
+  // utils.killMe();
 }
-
-
-/* START AT MAIN */
-main();
