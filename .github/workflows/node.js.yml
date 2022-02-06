@@ -56,7 +56,7 @@ jobs:
   # Setup Coverage
   coverage:
     runs-on: ubuntu-latest
+    name: Coverage Report
     steps:
-    - name: Run Coverage
-      uses: actions/checkout@v1
-      uses: ArtiomTr/jest-coverage-report-action@v2
+      - uses: actions/checkout@v1
+      - uses: ArtiomTr/jest-coverage-report-action@v2
