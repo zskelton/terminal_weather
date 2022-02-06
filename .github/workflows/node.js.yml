@@ -42,6 +42,5 @@ jobs:
       run: npm run-script test
 
     # Setup Coverage
-    - uses: actions/checkout@v1
     - name: Coverage Report
-    - uses: ArtiomTr/jest-coverage-report-action@v2
+      uses: ArtiomTr/jest-coverage-report-action@v2
