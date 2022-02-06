@@ -40,9 +40,10 @@ jobs:
     # Run Tests
     - name: Run Tests
       run: |
-      npm run test
+        npm run test
 
     # Run Coverage
     - name: Run Coverage
-      uses: actions/checkout@v1
-      uses: ArtiomTr/jest-coverage-report-action@v2
+      uses: |
+        actions/checkout@v1
+        ArtiomTr/jest-coverage-report-action@v2
