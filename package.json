@@ -13,6 +13,7 @@
   "scripts": {
     "start": "node index.cjs",
     "debug": "node --inspect-brk index.cjs",
-    "build": "pkg --output build/web ."
+    "build": "pkg --output build/web .",
+    "docs": ".\\bin\\glow.exe .\\README.md --pager"
   }
 }
