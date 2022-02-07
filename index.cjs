@@ -18,8 +18,6 @@ async function main() {
   const weatherData = await utils.getData(weatherApiUrl+locData.city);
   if(!weatherData) { console.warn("Error: Failed to get weather."); utils.killMe(); };
 
-  console.log(weatherData);
-
   // Print Status
   utils.reportWeather(weatherData);
 

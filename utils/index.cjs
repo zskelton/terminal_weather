@@ -4,25 +4,40 @@ const colors = require('./../ansi_colors');
 
 /* KILL PROCESS FUNCTION */
 function killMe (error) {
-  error ? console.error(`${colors.red}Error: ${colors.white}${error.code} @ ${error.hostname}.${colors.reset}`) : null;
-  process.exit(error ? 1 : 0);
+  if (error) {
+    // Display Error Message
+    if (error.code && error.hostname) {
+      console.log(`${colors.red}Error: ${colors.white}${error.code} @ ${error.hostname}.${colors.reset}`);
+    } else {
+      console.log(`${colors.red}Error: ${colors.white}${error}${colors.reset}`);
+    }
+    process.exit(1);
+  }
+  // Clean Exit
+  process.exit(0);
 }
 
 /* CHECK CONNECTION FUNCTION */
 const checkConnection = async(sitelist) => {
-  sitelist.forEach((site) => {
-      dns.lookup(site, err => {
-        if (err) { killMe(err); }
-      });
-  });
+  try {
+    sitelist.forEach((site) => {
+        dns.lookup(site, () => {});
+    });
 
-  return true;
+    return true;
+  } catch (e) {
+    killMe(e);
+  }
 }
 
 /* GET DATA FUNCTION */
 async function getData(url) {
   // Get Response
   try {
+    // Catch Bad Data Format
+    if (!url) { throw new Error('No URL'); }
+
+    // Setup Calls
     const res = await new Promise(resolve => {
       http.get(url, resolve);
     });
@@ -66,7 +81,6 @@ function reportWeather (data) {
     if (d < 293) { return '◀'; } // u25c0
     if (d < 337) { return '◤'; } // u25e4
     if (d >= 338) { return '▲'; } // u25b2
-    return '';
   }
 
   // Get Weather Symbol
@@ -74,11 +88,13 @@ function reportWeather (data) {
     switch(desc) {
       case "clear sky":
         return '☀️ Clear Skies'; // u2600
-      case "few clouds" | "scattered clouds":
+      case "few clouds":
+      case  "scattered clouds":
         return '☁️ Few Clouds'; // u2601
       case "broken clouds":
         return '⛅ Broken Clouds'; // u26c5
-      case "shower rain" | "rain":
+      case "shower rain":
+      case  "rain":
         return '☂ Rain'; // u2602
       case "thunderstorms":
         return '⚡️ Thunderstorms'; // u26a1
